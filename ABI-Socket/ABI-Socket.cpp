@@ -35,7 +35,9 @@ int server()
 	ServerSocket srv_sock(SERVERPORT); // 1) ServerSocket() - erzeugt einen Server-Socket UND bind() UND listen()
 
 	// Vorbereiten des zu übertragenden Textes
-	string text = "Hallo";
+	string textString = "Hallo";
+	char   textChar[] = "Hallo";
+	int	   zahl = 65;
 
 	//Schleife für Anfragen
 	int i = 3;
@@ -47,7 +49,9 @@ int server()
 		cout << "Verbindung akzeptiert... " << endl;
 
 		//Senden des Begrüßungstextes
-		work_sock->write(text); // 3) write()/read()
+		//work_sock->write(textString); // string
+	    work_sock->write(textChar, 6); // char Feld
+		//work_sock->write(zahl); // int Feld
 		cout << "---------------------------------------" << endl;
 
 		//Schließen des Arbeitssockets
@@ -66,7 +70,7 @@ int client()
 	system("color 4B");
 
 	Socket client_sock(SERVERIP, SERVERPORT); // 1) Socket() - erzeugt einen Arbeitssocket
-	string text;
+
 	cout << "Warte auf Serververbindung" << endl;
 	while (client_sock.connect() == 0)	// 2) connect() - stellt eine Verbi9ndung zum Server her
 	{
@@ -78,8 +82,20 @@ int client()
 	cout << "\nVerbunden mit dem Server" << endl;
 
 	// Nachricht abholen und ausgeben
-	text = client_sock.readLine(); // 3) read() / write()
-	cout << "Nachricht erhalten -> " << text << endl;
+
+	// String
+	//string textString = client_sock.readLine(); 
+	//cout << "String erhalten -> " << textString << endl;
+
+	// Char Feld
+	char textChar[6] = { 0 };
+	cout << "Anzahl gelesener Zeichen: " << client_sock.read(textChar, 6); // char Feld
+	cout << "Char-Feld erhalten -> " << textChar << endl;
+	
+	// int
+	//int zahl = client_sock.read(); 
+	//cout << "int erhalten -> " << zahl << endl;
+	//cout << "als char interpretiert -> " << static_cast<char>(zahl) << endl;
 
 	client_sock.close(); // 4) close() - Arbeitssocket
 
