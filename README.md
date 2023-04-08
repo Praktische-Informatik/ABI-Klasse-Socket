@@ -1,4 +1,4 @@
-# ABI-Klasse-Socket (Übersetzt die Java "Socket" Funktionalitäten in C++)
+# ABI-Klasse-Socket (Übersetzt die Java "ServerSocket" und "Socket" Funktionalitäten in C++)
 Sockets
 Bei der Erstellung der Anwendung zur Kommunikation im Netz kann auf eine existierende Klassen Socket und ServerSocket zurückgegriffen werden, welche die grundlegenden Methoden zur Kommunikation via TCP/IP bereitstellen. (vgl. Klassen-Diagramm).
 
